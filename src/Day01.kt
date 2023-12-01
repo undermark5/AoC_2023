@@ -1,9 +1,9 @@
 fun main() {
     fun part1(input: List<String>): Int {
         return input.map {
-            it.filter { it.isDigit() }
+            it.filter(Char::isDigit)
         }.sumOf {
-            (it.first().toNumericValue()) * 10 + (it.last().toNumericValue())
+            "${it.first()}${it.last()}".toInt()
         }
     }
 
@@ -14,14 +14,14 @@ fun main() {
             val first = it.findAnyOf(
                 digits
             )?.let {(_, value) ->
-                value.parseDigit()
+                value.toDigit()
             }
             val last = it.findLastAnyOf(
                 digits
             )?.let {(_, value) ->
-                value.parseDigit()
+                value.toDigit()
             }
-            first?.times(10)?.plus(last ?: 0)
+            "$first$last".toIntOrNull()
         }.sum()
     }
 

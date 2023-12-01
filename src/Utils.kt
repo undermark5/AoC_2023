@@ -149,10 +149,10 @@ val englishDigits = mapOf(
     "nine" to 9,
 )
 
-fun String.parseDigit(): Int? {
+fun String.toDigit(): String? {
     return if (length == 1) {
-        toIntOrNull()
+        this
     } else {
-        englishDigits[this]
+        englishDigits[this]?.toString()
     }
 }
