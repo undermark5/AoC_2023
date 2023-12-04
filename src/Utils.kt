@@ -3,6 +3,7 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.io.path.Path
+import kotlin.io.path.absolute
 import kotlin.io.path.readLines
 
 
@@ -40,6 +41,12 @@ fun <E> MutableList<E>.peek(): E {
 }
 
 data class MutablePair<T, O>(var first: T, var second: O)
+
+fun <A,B> Pair<A,B>.toMutablePair() = MutablePair(first, second)
+
+fun <B> MutablePair<Int,B>.incFirst(amount: Int = 1): Unit {
+    first += amount
+}
 
 fun String.toIntRange(delim: String = ".."): IntRange {
     val split = this.split(delim)
