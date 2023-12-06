@@ -3,8 +3,9 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.io.path.Path
-import kotlin.io.path.absolute
 import kotlin.io.path.readLines
+import kotlin.math.max
+import kotlin.math.min
 
 
 /**
@@ -162,4 +163,34 @@ fun String.toDigit(): String? {
     } else {
         englishDigits[this]?.toString()
     }
+}
+
+operator fun LongRange.plus(value: Long): LongRange {
+    return (first + value)..(last + value)
+}
+
+operator fun LongRange.contains(other: LongRange): Boolean {
+    return first <= other.first && last >= other.last
+}
+
+fun LongRange.intersect(other: LongRange): LongRange {
+    return if (other.first > last || first > other.last) {
+        LongRange.EMPTY
+    } else {
+        max(first, other.first)..min(last, other.last)
+    }
+}
+
+operator fun LongRange.minus(other: LongRange): List<LongRange> {
+    if (this == other) return emptyList()
+    if (isEmpty()) return emptyList()
+    if (other.isEmpty()) return listOf(this)
+    return listOf(
+        first..<other.first,
+        other.endExclusive..last
+    ).filter(LongRange::isNotEmpty)
+}
+
+fun LongRange.isNotEmpty(): Boolean {
+    return !isEmpty()
 }
