@@ -95,6 +95,14 @@ fun <E> List<List<E>>.getOrNull(pair: Pair<Int, Int>): E? {
     return this.getOrNull(pair.first)?.getOrNull(pair.second)
 }
 
+operator fun List<String>.get(pair: Pair<Int,Int>): Char {
+    return this[pair.first][pair.second]
+}
+
+fun List<String>.getOrNull(pair: Pair<Int,Int>): Char? {
+    return this.getOrNull(pair.first)?.getOrNull(pair.second)
+}
+
 open class Node<E>(val value: E) {
     var visited = false
     var neighbors = listOf<Node<E>>()
@@ -221,3 +229,8 @@ fun lcm(input: List<Long>): Long {
     for (i in 1 until input.size) result = lcm(result, input[i])
     return result
 }
+
+val Pair<Int,Int>.up: Pair<Int, Int> get() = this.first - 1 to this.second
+val Pair<Int,Int>.down: Pair<Int, Int> get() = this.first + 1 to this.second
+val Pair<Int,Int>.left: Pair<Int, Int> get() = this.first to this.second - 1
+val Pair<Int,Int>.right: Pair<Int, Int> get() = this.first to this.second + 1
